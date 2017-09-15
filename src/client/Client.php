@@ -40,5 +40,25 @@ class Client {
         $this->serverPublicKey = $serverPublicKey;
     }
 
+    public function initExpressStatement() {
+
+    }
+
+    public function fetchConnectedBankList($sessionId, $sessionPublicKey) {
+
+    }
+
+    public function deleteAllConnectionsForBank($sessionId, $bic, $sessionPublicKey) {
+
+    }
+
+    public function deleteAllConnections($sessionId, $sessionPublicKey) {
+
+    }
+
+    public function getExpressStatement($sessionId, $sessionPublicKey) {
+
+    }
+
 
 }
