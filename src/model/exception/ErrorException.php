@@ -23,12 +23,12 @@ use Lime\ExpressStatement\Model\Entity\Error;
  * Class representing an error exception, bound to the client side
  * error handling of server error states.
  * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Exception
  */
 class ErrorException extends \Exception {
 
-    /**
-     * @var Error[] List of errors associated with the exception.
-     */
+    /** @var Error[] List of errors associated with the exception. */
     public $errors;
 
     /**

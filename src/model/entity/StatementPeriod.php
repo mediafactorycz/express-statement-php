@@ -19,18 +19,15 @@ namespace Lime\ExpressStatement\Model\Entity;
 
 /**
  * Bank account statement period (from-to).
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Entity
  */
 class StatementPeriod {
 
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime From date (date more in the past, when the statement starts, for example 01 Jun). */
     public $from;
 
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime To date (date closer to the present, when the statement ends, for example 30 Jun). */
     public $to;
 
 }

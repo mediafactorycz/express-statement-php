@@ -26,6 +26,7 @@ use Mdanter\Ecc\Serializer\Signature\DerSignatureSerializer;
 
 /**
  * Class that simplifies generating and validating ECDSA signatures.
+ *
  * @package Lime\ExpressStatement\Crypto
  */
 class Signature {
@@ -56,7 +57,7 @@ class Signature {
     }
 
     /**
-     * Validate provided signature for given data using a provided public key.
+     * Validate provided ECDSA signature for given data using a provided public key.
      *
      * @param $data string Data to be used for signature validation.
      * @param $signature string Signature data.

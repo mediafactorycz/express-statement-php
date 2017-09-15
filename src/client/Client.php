@@ -17,13 +17,26 @@
 
 namespace Lime\ExpressStatement\Client;
 
+/**
+ * Client to the Express Statement service.
+ *
+ * @package Lime\ExpressStatement\Client
+ */
 class Client {
 
+    /** @var string Client library version. */
     private static $CLIENT_VERSION = "1.8.1";
+
+    /** @var string Default endpoint URL. */
     private static $BASE_URL = "https://service.rychlyvypis.cz";
 
+    /** @var string APP_KEY value. */
     private $appKey;
+
+    /** @var string APP_PRIVATE_KEY value. */
     private $appPrivateKey;
+
+    /** @var string SERVER_PUBLIC_KEY value. */
     private $serverPublicKey;
 
     /**

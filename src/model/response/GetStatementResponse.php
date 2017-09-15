@@ -21,7 +21,8 @@ use Lime\ExpressStatement\Model\Entity\BankStatementExport;
 
 /**
  * Response object with the bank account statements for all connected banks.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Response
  */
 class GetStatementResponse {
 
@@ -30,9 +31,7 @@ class GetStatementResponse {
      */
     public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string Random 16B long cryptographic nonce, Base64 encoded */
     public $nonce;
 
     /**

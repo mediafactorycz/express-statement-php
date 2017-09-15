@@ -21,33 +21,24 @@ use Lime\ExpressStatement\Model\Entity\Bank;
 
 /**
  * Response object with the information about currently connected and available banks.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Response
  */
 class GetLinkedAccountListResponse {
 
-    /**
-     * @var string
-     */
+    /** @var string Session ID value. */
     public $id;
 
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime Timestamp indicating when the connection will expire. */
     public $expires;
 
-    /**
-     * @var string
-     */
+    /** @var string Random 16B long cryptographic nonce, Base64 encoded. */
     public $nonce;
 
-    /**
-     * @var Bank[]
-     */
+    /** @var Bank[] Array of banks that are already connected with provided session ID. */
     public $banks;
 
-    /**
-     * @var Bank[]
-     */
+    /** @var Bank[] Array of banks that are still available for connection. */
     public $availableBanks;
 
 }

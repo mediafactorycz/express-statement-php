@@ -19,28 +19,21 @@ namespace Lime\ExpressStatement\Model\Entity;
 
 /**
  * Class representing a bank account statement.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Entity
  */
 class Statement {
 
-    /**
-     * @var AccountIdentification
-     */
+    /** @var AccountIdentification Account identification for the account on the statement. */
     public $account;
 
-    /**
-     * @var AccountBalance
-     */
+    /** @var AccountBalance Balance on the account at the end of the statement period. */
     public $balance;
 
-    /**
-     * @var StatementPeriod
-     */
+    /** @var StatementPeriod Period (from-to) of this statement. */
     public $period;
 
-    /**
-     * @var Transaction[]
-     */
+    /** @var Transaction[] List of transactions on the account. */
     public $transactions;
 
 }

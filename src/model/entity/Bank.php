@@ -19,18 +19,15 @@ namespace Lime\ExpressStatement\Model\Entity;
 
 /**
  * Class representing a single bank information.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Entity
  */
 class Bank {
 
-    /**
-     * @var string
-     */
+    /**  @var string Bank name (name of organization). */
     public $name;
 
-    /**
-     * @var string
-     */
+    /** @var string Bank BIC code. */
     public $bic;
 
 }

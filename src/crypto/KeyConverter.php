@@ -23,12 +23,18 @@ use Mdanter\Ecc\Curves\NistCurve;
 /**
  * Helper class used for conversion between binary data representing keys
  * and keys represented as objects.
- * @package Lime\ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Crypto
  */
 class KeyConverter {
 
+    /** @var int Public key component length */
     private static $KEY_LENGTH = 32;
+
+    /** @var int Public key X coordinate offset */
     private static $KEY_OFFSET_X = 1;
+
+    /** @var int Public key Y coordinate offset */
     private static $KEY_OFFSET_Y = 33;
 
     /**

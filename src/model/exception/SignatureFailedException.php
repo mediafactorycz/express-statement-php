@@ -21,7 +21,8 @@ use Lime\ExpressStatement\Model\Entity\Error;
 
 /**
  * Exception class used for issues related to signature and signature validation processes.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Exception
  */
 class SignatureFailedException extends ErrorException {
 

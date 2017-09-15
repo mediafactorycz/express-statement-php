@@ -19,23 +19,18 @@ namespace Lime\ExpressStatement\Model\Response;
 
 /**
  * Response object of the delete bank connection method.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Response
  */
 class DeleteBankConnectionResponse {
 
-    /**
-     * @var string
-     */
+    /** @var string Session ID value. */
     public $sessionId;
 
-    /**
-     * @var string
-     */
+    /** @var string Bank BIC code. */
     public $bic;
 
-    /**
-     * @var string
-     */
+    /** @var string Random 16B long cryptographic nonce, Base64 encoded */
     public $nonce;
 
 }

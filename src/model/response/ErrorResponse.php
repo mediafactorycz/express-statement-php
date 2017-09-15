@@ -21,7 +21,8 @@ use Lime\ExpressStatement\Model\Entity\Error;
 
 /**
  * Generic error response.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Response
  */
 class ErrorResponse {
 

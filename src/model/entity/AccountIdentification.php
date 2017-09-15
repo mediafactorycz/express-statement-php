@@ -19,28 +19,21 @@ namespace Lime\ExpressStatement\Model\Entity;
 
 /**
  * Class representing an account identification.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Entity
  */
 class AccountIdentification {
 
-    /**
-     * @var string
-     */
+    /** @var string Account number in IBAN format. */
     public $iban;
 
-    /**
-     * @var string
-     */
+    /** @var string Account name. */
     public $name;
 
-    /**
-     * @var string
-     */
+    /** @var string Account product name. */
     public $productName;
 
-    /**
-     * @var string
-     */
+    /** @var string Account owner name. */
     public $ownerName;
 
 }

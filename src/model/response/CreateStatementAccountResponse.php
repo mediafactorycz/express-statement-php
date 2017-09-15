@@ -19,28 +19,21 @@ namespace Lime\ExpressStatement\Model\Response;
 
 /**
  * Response object for created temporary pairing account.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Response
  */
 class CreateStatementAccountResponse {
 
-    /**
-     * @var string
-     */
+    /** @var string Session ID value. */
     public $sessionId;
 
-    /**
-     * @var string
-     */
+    /** @var string Redirect ID value. */
     public $redirectId;
 
-    /**
-     * @var string
-     */
+    /** @var string Session public key, Base64 encoded value. */
     public $publicKey;
 
-    /**
-     * @var string
-     */
+    /** @var string Random 16B long cryptographic nonce, Base64 encoded */
     public $nonce;
 
 }

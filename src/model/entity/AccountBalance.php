@@ -19,18 +19,15 @@ namespace Lime\ExpressStatement\Model\Entity;
 
 /**
  * Class representing an account balance - amount and currency.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Entity
  */
 class AccountBalance {
 
-    /**
-     * @var double
-     */
+    /** @var double Account balance value (amount).  */
     public $amount;
 
-    /**
-     * @var string
-     */
+    /** @var string Account balance currency, in ISO 4217 format. */
     public $currency;
 
 }

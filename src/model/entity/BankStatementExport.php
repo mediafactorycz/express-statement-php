@@ -19,18 +19,15 @@ namespace Lime\ExpressStatement\Model\Entity;
 
 /**
  * Class representing an bank account statement export from a single bank.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Entity
  */
 class BankStatementExport {
 
-    /**
-     * @var Bank Bank information
-     */
+    /** @var Bank Bank information for the bank connected to the statement export */
     public $bank;
 
-    /**
-     * @var Statement[] List of bank account statements
-     */
+    /** @var Statement[] List of bank account statements */
     public $statements;
 
 }

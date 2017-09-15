@@ -19,33 +19,24 @@ namespace Lime\ExpressStatement\Model\Request;
 
 /**
  * Request object used for deleting a connection with the bank.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Request
  */
 class DeleteBankConnectionRequest {
 
-    /**
-     * @var string
-     */
+    /** @var string APP_KEY value. */
     public $appKey;
 
-    /**
-     * @var string
-     */
+    /** @var string Session ID value. */
     public $sessionId;
 
-    /**
-     * @var string
-     */
+    /** @var string BIC value. */
     public $bic;
 
-    /**
-     * @var string
-     */
+    /** @var string Timestamp in ISO 8601 format. */
     public $timestamp;
 
-    /**
-     * @var string
-     */
+    /** @var string Random 16B long cryptographic nonce, Base64 encoded */
     public $nonce;
 
 }

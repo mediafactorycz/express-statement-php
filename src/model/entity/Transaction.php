@@ -19,73 +19,48 @@ namespace Lime\ExpressStatement\Model\Entity;
 
 /**
  * Class representing a bank account transaction.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Entity
  */
 class Transaction {
 
-    /**
-     * @var string
-     */
+    /** @var string Transaction ID, as assigned by the bank. */
     public $id;
 
-    /**
-     * @var string
-     */
+    /** @var string Basic information about the other party. */
     public $partyInfo;
 
-    /**
-     * @var string
-     */
+    /** @var string Description of the other party. */
     public $partyDescription;
 
-    /**
-     * @var string
-     */
+    /** @var string IBAN number of the other party, if present. */
     public $partyIban;
 
-    /**
-     * @var double
-     */
+    /** @var double Transaction amount. */
     public $amount;
 
-    /**
-     * @var string
-     */
+    /** @var string Transaction currency. */
     public $currency;
 
-    /**
-     * @var \DateTime
-     */
+    /** @var \DateTime Transaction value date (date when transaction was accounted). */
     public $valueDate;
 
-    /**
-     * @var string
-     */
+    /** @var string Transaction description. */
     public $description;
 
-    /**
-     * @var string
-     */
+    /** @var string Note for payee. */
     public $payeeNote;
 
-    /**
-     * @var string
-     */
+    /** @var string Note for payer. */
     public $payerNote;
 
-    /**
-     * @var string
-     */
+    /** @var string Variable symbol. */
     public $variableSymbol;
 
-    /**
-     * @var string
-     */
+    /** @var string Constant symbol. */
     public $constantSymbol;
 
-    /**
-     * @var string
-     */
+    /** @var string Specific symbol. */
     public $specificSymbol;
 
 }

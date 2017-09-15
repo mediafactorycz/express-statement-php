@@ -19,23 +19,18 @@ namespace Lime\ExpressStatement\Model\Entity;
 
 /**
  * Class representing a generic RESTful API error object.
- * @package ExpressStatement
+ *
+ * @package Lime\ExpressStatement\Model\Entity
  */
 class Error {
 
-    /**
-     * @var string Error code.
-     */
+    /**  @var string Error code. */
     public $code;
 
-    /**
-     * @var string Error description.
-     */
+    /** @var string Error description. */
     public $description;
 
-    /**
-     * @var string Localized error description.
-     */
+    /** @var string Localized error description. */
     public $localizedDescription;
 
     /**
