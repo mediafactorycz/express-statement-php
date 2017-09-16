@@ -67,7 +67,7 @@ class Transaction extends Serializable {
     public $specificSymbol;
 
     public function typeHint($fieldName) {
-        if ($fieldName === "valueDate") {
+        if ($fieldName === "valuedate") {
             return new ISO8601DateTime();
         }
         return parent::typeHint($fieldName);

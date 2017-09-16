@@ -47,9 +47,9 @@ class HttpUtil {
             } else {
                 $firstSkipped = true;
             }
-            $res .= urlencode($key);
+            $res .= str_replace("%2B", "+", urlencode($key));
             $res .= "=";
-            $res .= urlencode($val);
+            $res .= str_replace("%2B", "+", urlencode($val));
         }
         return $res;
     }

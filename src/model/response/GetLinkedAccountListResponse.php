@@ -50,9 +50,9 @@ class GetLinkedAccountListResponse extends Serializable {
             return array();
         } else if ($fieldName === "banks[]") {
             return new Bank();
-        } else if ($fieldName === "availableBanks") {
+        } else if ($fieldName === "availablebanks") {
             return array();
-        } else if ($fieldName === "availableBanks[]") {
+        } else if ($fieldName === "availablebanks[]") {
             return new Bank();
         }
         return parent::typeHint($fieldName);

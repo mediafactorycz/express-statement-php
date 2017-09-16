@@ -225,7 +225,7 @@ class Client {
         }
 
         // Process the response
-        $signResponse = $res->getHeader("X-Data-Signature");
+        $signResponse = $res->getHeaderLine("X-Data-Signature");
         if ($this->signature->validateDataSignature($body, base64_decode($signResponse), $publicKey)) {
             $response->unserialize($body);
             return $response;
