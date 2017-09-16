@@ -26,8 +26,8 @@ use Lime\ExpressStatement\Model\Base\Serializable;
  */
 class Error extends Serializable {
 
-    const ERROR_GENERIC = "ERROR_GENERIC";
-    const ERROR_NETWORK = "ERROR_NETWORK";
+    public const ERROR_GENERIC = "ERROR_GENERIC";
+    public const ERROR_NETWORK = "ERROR_NETWORK";
 
     /**  @var string Error code. */
     public $code;
@@ -44,7 +44,7 @@ class Error extends Serializable {
      * @param $description string Error description in English.
      * @param $localizedDescription string Localized error description, if available.
      */
-    public function __construct($code = Error::ERROR_GENERIC, $description = "", $localizedDescription = "")
+    public function __construct(string $code = Error::ERROR_GENERIC, string $description = "", string $localizedDescription = "")
     {
         $this->code = $code;
         $this->description = $description;

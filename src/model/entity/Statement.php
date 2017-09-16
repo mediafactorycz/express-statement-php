@@ -38,7 +38,7 @@ class Statement extends Serializable {
     /** @var Transaction[] List of transactions on the account. */
     public $transactions;
 
-    public function typeHint($fieldName) {
+    public function typeHint(string $fieldName) {
         if ($fieldName === "account") {
             return new AccountIdentification();
         } else if ($fieldName === "balance") {

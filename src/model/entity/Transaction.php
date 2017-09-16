@@ -66,7 +66,7 @@ class Transaction extends Serializable {
     /** @var string Specific symbol. */
     public $specificSymbol;
 
-    public function typeHint($fieldName) {
+    public function typeHint(string $fieldName) {
         if ($fieldName === "valuedate") {
             return new ISO8601DateTime();
         }

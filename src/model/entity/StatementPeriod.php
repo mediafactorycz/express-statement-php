@@ -33,7 +33,7 @@ class StatementPeriod extends Serializable {
     /** @var ISO8601DateTime To date (date closer to the present, when the statement ends, for example 30 Jun). */
     public $to;
 
-    public function typeHint($fieldName) {
+    public function typeHint(string $fieldName) {
         if ($fieldName === "from") {
             return new ISO8601DateTime();
         } else if ($fieldName === "to") {

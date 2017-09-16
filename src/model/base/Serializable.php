@@ -31,7 +31,7 @@ class Serializable implements \Serializable {
      * @param $property string Property to read from $mixed.
      * @return object|null Value of $mixed->{$property} if it can be returned, null otherwise.
      */
-    private function getValue($mixed, $property) {
+    private function getValue($mixed, string $property) {
         if (isset($mixed->{$property})) {
             return $mixed->{$property};
         } else {
@@ -48,7 +48,7 @@ class Serializable implements \Serializable {
      * @param $property string Property to be used for type hinting in case of arrays.
      * @return array|bool|\DateTime|object|null Assigned object instance.
      */
-    private function assignImpl($value, $expectedType, $property) {
+    private function assignImpl($value, $expectedType, string $property) {
 
         // No type hint present, just assign...
         if ($expectedType === null) {
@@ -148,7 +148,7 @@ class Serializable implements \Serializable {
      * what class is used for array elements.
      * @return null No type hints are provided.
      */
-    public function typeHint($fieldName) {
+    public function typeHint(string $fieldName) {
         return null;
     }
 

@@ -32,7 +32,7 @@ class ErrorResponse extends Serializable {
      */
     public $errors;
 
-    public function typeHint($fieldName) {
+    public function typeHint(string $fieldName) {
         if ($fieldName === "errors") {
             return array();
         } else if ($fieldName === "errors[]") {

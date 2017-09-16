@@ -29,11 +29,11 @@ class ISO8601DateTime extends \DateTime implements \JsonSerializable {
     /**
      * Create a new instance from provided string that represents date as ISO 8601 format.
      *
-     * @param $time String representing date in ISO 8601.
+     * @param $time string String representing date in ISO 8601.
      * @param DateTimeZone|null $timezone Timezone.
-     * @return bool|ISO8601DateTime Object representing a date time.
+     * @return ISO8601DateTime Object representing a date time.
      */
-    public static function createFromISO8601Format($time, DateTimeZone $timezone = null) {
+    public static function createFromISO8601Format(string $time, DateTimeZone $timezone = null): ISO8601DateTime {
         $dateTime = new ISO8601DateTime();
         $dateTime->createFromFormat('Y-m-d\TH:i:s+', $time, $timezone);
         return $dateTime;
@@ -44,7 +44,7 @@ class ISO8601DateTime extends \DateTime implements \JsonSerializable {
      *
      * @return string ISO 8601 string representing "now".
      */
-    public static function nowAsString() {
+    public static function nowAsString(): string {
         return (new ISO8601DateTime())->jsonSerialize();
     }
 
@@ -53,7 +53,7 @@ class ISO8601DateTime extends \DateTime implements \JsonSerializable {
      *
      * @return string JSON representation of date, string in ISO 8601 format.
      */
-    public function jsonSerialize() {
+    public function jsonSerialize(): string {
         return $this->format("c");
     }
 

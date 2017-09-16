@@ -17,6 +17,8 @@
 
 namespace Lime\ExpressStatement\Crypto;
 
+use Mdanter\Ecc\Crypto\Key\PrivateKey;
+use Mdanter\Ecc\Crypto\Key\PublicKey;
 use Mdanter\Ecc\Curves\CurveFactory;
 use Mdanter\Ecc\Curves\NistCurve;
 
@@ -29,16 +31,16 @@ use Mdanter\Ecc\Curves\NistCurve;
 class KeyConverter {
 
     /** Public key component length */
-    const KEY_LENGTH = 32;
+    private const KEY_LENGTH = 32;
 
     /** Public key X coordinate offset */
-    const KEY_OFFSET_X = 1;
+    private const KEY_OFFSET_X = 1;
 
     /** Public key Y coordinate offset */
-    const KEY_OFFSET_Y = 33;
+    private const KEY_OFFSET_Y = 33;
 
     /** Public key raw data length */
-    const KEY_DATA_LEN = 65;
+    private const KEY_DATA_LEN = 65;
 
     /**
      * Convert provided bytes (raw data) to public key.
@@ -47,7 +49,7 @@ class KeyConverter {
      * encoding type and then there are 2x 32 bytes for public key X,Y points.
      * @return \Mdanter\Ecc\Crypto\Key\PublicKey Decoded public key.
      */
-    function bytesToPublicKey($publicKeyBytes) {
+    function bytesToPublicKey(string $publicKeyBytes): PublicKey {
         // Validate data
         if (strlen($publicKeyBytes) != KeyConverter::KEY_DATA_LEN) {
             throw new \RuntimeException('EC public key data size invalid - key data must be 65 bytes long.');
@@ -74,7 +76,7 @@ class KeyConverter {
      * @param $privateKeyBytes string Private key bytes. These are 32 bytes representing a key value.
      * @return \Mdanter\Ecc\Crypto\Key\PrivateKey Decoded private key.
      */
-    function bytesToPrivateKey($privateKeyBytes) {
+    function bytesToPrivateKey(string $privateKeyBytes): PrivateKey {
         $generator = CurveFactory::getGeneratorByName(NistCurve::NAME_P256);
         $secretMultiplier = gmp_import($privateKeyBytes, 1, GMP_MSW_FIRST | GMP_BIG_ENDIAN);
         return $generator->getPrivateKeyFrom($secretMultiplier);

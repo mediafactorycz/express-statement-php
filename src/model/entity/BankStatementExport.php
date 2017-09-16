@@ -32,7 +32,7 @@ class BankStatementExport extends Serializable {
     /** @var Statement[] List of bank account statements */
     public $statements;
 
-    public function typeHint($fieldName){
+    public function typeHint(string $fieldName){
         if ($fieldName === "bank") {
             return new Bank();
         } else if ($fieldName === "statements") {

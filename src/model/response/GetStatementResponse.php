@@ -40,7 +40,7 @@ class GetStatementResponse extends Serializable {
      */
     public $data;
 
-    public function typeHint($fieldName) {
+    public function typeHint(string $fieldName) {
         if ($fieldName === "data") {
             return array();
         } else if ($fieldName === "data[]") {

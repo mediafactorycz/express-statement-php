@@ -43,7 +43,7 @@ class GetLinkedAccountListResponse extends Serializable {
     /** @var Bank[] Array of banks that are still available for connection. */
     public $availableBanks;
 
-    public function typeHint($fieldName) {
+    public function typeHint(string $fieldName) {
         if ($fieldName === "expires") {
             return new ISO8601DateTime();
         } else if ($fieldName === "banks") {

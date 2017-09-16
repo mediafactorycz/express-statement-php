@@ -37,7 +37,7 @@ class HttpUtil {
      * @param array $params Params to be sorted.
      * @return string Normalized string suitable for signatures.
      */
-    public static function normalizeQueryParameterMap(array $params) {
+    public static function normalizeQueryParameterMap(array $params): string {
         ksort($params);
         $res = "";
         $firstSkipped = false;

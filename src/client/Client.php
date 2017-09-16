@@ -17,6 +17,8 @@
 
 namespace Lime\ExpressStatement\Client;
 
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
 use Lime\ExpressStatement\Crypto\KeyConverter;
 use Lime\ExpressStatement\Crypto\Signature;
@@ -30,6 +32,7 @@ use Lime\ExpressStatement\Model\Request\DeleteConnectionRequest;
 use Lime\ExpressStatement\Model\Response\CreateStatementAccountResponse;
 use Lime\ExpressStatement\Model\Response\DeleteBankConnectionResponse;
 use Lime\ExpressStatement\Model\Response\DeleteConnectionResponse;
+use Lime\ExpressStatement\Model\Response\ErrorResponse;
 use Lime\ExpressStatement\Model\Response\GetLinkedAccountListResponse;
 use Lime\ExpressStatement\Model\Response\GetStatementResponse;
 use Mdanter\Ecc\Crypto\Key\PublicKey;
@@ -72,8 +75,7 @@ class Client {
      * @param $appPrivateKey string Application private key, delivered as "APP_PRIVATE_KEY" value.
      * @param $serverPublicKey string Server public key, delivered as "SERVER_PUBLIC_KEY" value.
      */
-    public function __construct($appKey, $appPrivateKey, $serverPublicKey)
-    {
+    public function __construct(string $appKey, string $appPrivateKey, string $serverPublicKey) {
         // Initialize internal objects
         $this->converter = new KeyConverter();
         $this->signature = new Signature();
@@ -93,7 +95,7 @@ class Client {
      *
      * @return Serializable|CreateStatementAccountResponse New response containing a new session ID and a session public key.
      */
-    public function initExpressStatement() {
+    public function initExpressStatement(): CreateStatementAccountResponse {
         // Prepare request parameters for query
         $params = array();
         $params["appKey"] = $this->appKey;
@@ -107,10 +109,10 @@ class Client {
      * Get the list of connected banks with given session ID.
      *
      * @param $sessionId string Session identifier.
-     * @param $sessionPublicKey PublicKey A public key of this session as Base64 string, obtained by calling 'initExpressStatement' method.
+     * @param $sessionPublicKey string A public key of this session as Base64 string, obtained by calling 'initExpressStatement' method.
      * @return Serializable|GetLinkedAccountListResponse Response with a list of currently linked banks and list of available banks.
      */
-    public function fetchConnectedBankList($sessionId, $sessionPublicKey) {
+    public function fetchConnectedBankList(string $sessionId, string $sessionPublicKey): GetLinkedAccountListResponse {
         // Prepare request parameters for query
         $params = array();
         $params["appKey"] = $this->appKey;
@@ -129,10 +131,10 @@ class Client {
      *
      * @param $sessionId string Session identifier.
      * @param $bic string BIC code of the bank to be disconnected from the statement.
-     * @param $sessionPublicKey PublicKey A public key of this session as Base64 string, obtained by calling 'initExpressStatement' method.
+     * @param $sessionPublicKey string A public key of this session as Base64 string, obtained by calling 'initExpressStatement' method.
      * @return Serializable|DeleteBankConnectionResponse OK response with session ID and BIC code in case everything works as expected.
      */
-    public function deleteAllConnectionsForBank($sessionId, $bic, $sessionPublicKey) {
+    public function deleteAllConnectionsForBank(string $sessionId, string $bic, string $sessionPublicKey): DeleteBankConnectionResponse {
         // Prepare request object for the call
         $request = new DeleteBankConnectionRequest();
         $request->appKey = $this->appKey;
@@ -151,10 +153,10 @@ class Client {
      * Delete connections to all connected banks for given session ID.
      *
      * @param $sessionId string Session identifier.
-     * @param $sessionPublicKey PublicKey A public key of this session as Base64 string, obtained by calling 'initExpressStatement' method.
+     * @param $sessionPublicKey string A public key of this session as Base64 string, obtained by calling 'initExpressStatement' method.
      * @return Serializable|DeleteConnectionResponse OK response with session ID in case everything works as expected.
      */
-    public function deleteAllConnections($sessionId, $sessionPublicKey) {
+    public function deleteAllConnections(string $sessionId, string $sessionPublicKey): DeleteConnectionResponse {
         // Prepare request object for the call
         $request = new DeleteConnectionRequest();
         $request->appKey = $this->appKey;
@@ -173,10 +175,10 @@ class Client {
      * given session ID at the moment.
      *
      * @param $sessionId string Session identifier.
-     * @param $sessionPublicKey PublicKey A public key of this session as Base64 string, obtained by calling 'initExpressStatement' method.
+     * @param $sessionPublicKey string A public key of this session as Base64 string, obtained by calling 'initExpressStatement' method.
      * @return Serializable|GetStatementResponse Express statement data for all connected banks.
      */
-    public function getExpressStatement($sessionId, $sessionPublicKey) {
+    public function getExpressStatement(string $sessionId, string $sessionPublicKey): GetStatementResponse {
         // Prepare request parameters for query
         $params = array();
         $params["appKey"] = $this->appKey;
@@ -213,7 +215,7 @@ class Client {
      * @throws ErrorException In case HTTP processing occurs, or server returns error response.
      * @throws SignatureFailedException In case server response signature does not match.
      */
-    private function http(string $method, string $path, array $params, string $normalizedData, PublicKey $publicKey, Serializable $response) {
+    private function http(string $method, string $path, array $params, string $normalizedData, PublicKey $publicKey, Serializable $response): Serializable {
 
         // Prepare request parameters
         $url = $this->BASE_URL . $path;
@@ -230,21 +232,21 @@ class Client {
         // Send GET request to provided path
         try {
             $res = $this->client->request($method, $url, $params);
-        } catch (RequestException $ex) { // Networking has failed
+        } catch (ConnectException $ex) { // Networking has failed
+            $error = new Error(Error::ERROR_NETWORK, $ex->getMessage());
+            throw new ErrorException([ $error ]);
+        } catch (ClientException $ex) { // Client error - HTTP 400
+            $body = $ex->getResponse()->getBody()->getContents();
+            $errorResponse = new ErrorResponse();
+            $errorResponse->unserialize($body);
+            throw new ErrorException($errorResponse->errors);
+        } catch (RequestException $ex) { // Other HTTP errors
             $error = new Error(Error::ERROR_NETWORK, $ex->getMessage());
             throw new ErrorException([ $error ]);
         }
 
         // Fetch response data
-        $status = $res->getStatusCode();
         $body = $res->getBody()->getContents();
-
-        // Check if response was correct, if not, process and return error.
-        if ($status !== 200) {
-            $error = new Error();
-            $error->unserialize($body);
-            throw new ErrorException([ $error ]);
-        }
 
         // Process the response
         $signResponse = $res->getHeaderLine("X-Data-Signature");
@@ -265,7 +267,7 @@ class Client {
      * @param Serializable $response Instance for the response object.
      * @return Serializable Response, $response value with data form response JSON.
      */
-    private function httpGet(string $path, array $params, PublicKey $publicKey, Serializable $response) {
+    private function httpGet(string $path, array $params, PublicKey $publicKey, Serializable $response): Serializable {
         return $this->http("GET", $path, [ 'query' => $params ], HttpUtil::normalizeQueryParameterMap($params), $publicKey, $response);
     }
 
@@ -278,7 +280,7 @@ class Client {
      * @param Serializable $response Instance for the response object.
      * @return Serializable Response, $response value with data form response JSON.
      */
-    private function httpPost(string $path, Serializable $request, PublicKey $publicKey, Serializable $response) {
+    private function httpPost(string $path, Serializable $request, PublicKey $publicKey, Serializable $response): Serializable {
         $requestBody = $request->serialize();
         return $this->http("POST", $path, [ "body" => $requestBody ], $requestBody, $publicKey, $response);
     }

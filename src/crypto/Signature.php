@@ -38,7 +38,7 @@ class Signature {
      * @param $privateKey PrivateKey Private key used for signature.
      * @return string Signature bytes.
      */
-    public function computeDataSignature($data, $privateKey) {
+    public function computeDataSignature(string $data, PrivateKey $privateKey): string {
         $adapter = EccFactory::getAdapter();
         $generator = EccFactory::getNistCurves()->generator256();
         $algorithm = 'sha256';
@@ -64,7 +64,7 @@ class Signature {
      * @param $publicKey PublicKey Public key for data verification.
      * @return bool True if the signature is correct, false otherwise.
      */
-    public function validateDataSignature($data, $signature, $publicKey) {
+    public function validateDataSignature(string $data, string $signature, PublicKey $publicKey): bool {
         $adapter = EccFactory::getAdapter();
         $generator = EccFactory::getNistCurves()->generator384();
         $algorithm = 'sha256';
@@ -82,7 +82,7 @@ class Signature {
      *
      * @return string Base64 encoded cryptographic nonce.
      */
-    public function nonce() {
+    public function nonce(): string {
         return base64_encode(random_bytes(16));
     }
 
