@@ -87,7 +87,7 @@ $json = $expressStatementResponse->serialize();
 You can disconnect any bank from the session easily, by providing the bank's BIC value:
 
 ```php
-$client->deleteAllConnectionsForBank($session_id, $bic, $sessionPublicKey);
+$client->deleteAllConnectionsForBank($sessionId, $bic, $sessionPublicKey);
 ```
 
 ### Remove Session
@@ -95,7 +95,7 @@ $client->deleteAllConnectionsForBank($session_id, $bic, $sessionPublicKey);
 You can also disconnect all banks from the session and clear the session:
 
 ```php
-$client->deleteAllConnections($session_id, $sessionPublicKey);
+$client->deleteAllConnections($sessionId, $sessionPublicKey);
 ```
 
 ## License
