@@ -44,7 +44,7 @@ class Client {
     /** Client library version. */
     const VERSION = "1.9.0";
 
-    /** Default endpoint URL. */
+    /** @var string Default endpoint URL. */
     public $BASE_URL = "https://service.rychlyvypis.cz";
 
     /** @var string APP_KEY value. */
