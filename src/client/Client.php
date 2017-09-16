@@ -73,8 +73,11 @@ class Client {
      */
     public function __construct($appKey, $appPrivateKey, $serverPublicKey)
     {
-        // Initialize the client with provided information - APP_KEY, APP_PRIVATE_KEY, SERVER_PUBLIC_KEY
+        // Initialize internal objects
         $this->converter = new KeyConverter();
+        $this->signature = new Signature();
+
+        // Initialize the client with provided information - APP_KEY, APP_PRIVATE_KEY, SERVER_PUBLIC_KEY
         $this->appKey = $appKey;
         $this->appPrivateKey = $this->converter->bytesToPrivateKey(base64_decode($appPrivateKey));
         $this->serverPublicKey = $this->converter->bytesToPublicKey(base64_decode($serverPublicKey));
