@@ -2,7 +2,7 @@
   "name": "lime-company/express-statement-php",
   "description": "Express statement integration library for PHP 7.1.",
   "type": "library",
-  "homepage": "https://github.com/lime-company/express-statement-php",
+  "homepage": "https://rychlyvypis.cz/",
   "keywords": ["psd2", "bank", "api", "fintech", "bank statement"],
   "license": "Apache-2.0",
   "authors": [
@@ -14,7 +14,8 @@
   "support": {
     "email": "support@lime-company.eu",
     "issues": "https://github.com/lime-company/express-statement-php/issues",
-    "source": "https://github.com/lime-company/express-statement-php"
+    "source": "https://github.com/lime-company/express-statement-php",
+    "docs": "https://github.com/lime-company/express-statement-php"
   },
   "require": {
     "php": ">=7.1",
