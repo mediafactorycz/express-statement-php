@@ -34,7 +34,9 @@ class ISO8601DateTime extends \DateTime implements \JsonSerializable {
      * @return bool|ISO8601DateTime Object representing a date time.
      */
     public static function createFromISO8601Format($time, DateTimeZone $timezone = null) {
-        return parent::createFromFormat('Y-m-d\TH:i:s+', $time, $timezone);
+        $dateTime = new ISO8601DateTime();
+        $dateTime->createFromFormat('Y-m-d\TH:i:s+', $time, $timezone);
+        return $dateTime;
     }
 
     /**
