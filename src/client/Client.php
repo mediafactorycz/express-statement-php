@@ -202,7 +202,7 @@ class Client {
             "Accept" => 'application/json',
             "Content-Type" => 'application/json',
             "User-Agent" => 'ExpressStatement/' . Client::VERSION,
-            "X-DataSignature" => $signRequest
+            "X-Data-Signature" => base64_encode($signRequest)
         ];
 
         // Send GET request to provided path
@@ -226,7 +226,7 @@ class Client {
 
         // Process the response
         $signResponse = $res->getHeader("X-Data-Signature");
-        if ($this->signature->validateDataSignature($body, $signResponse, $publicKey)) {
+        if ($this->signature->validateDataSignature($body, base64_decode($signResponse), $publicKey)) {
             $response->unserialize($body);
             return $response;
         } else {
