@@ -30,6 +30,12 @@ use Lime\ExpressStatement\Client\Client;
 $client = new Client($APP_KEY, $APP_PRIVATE_KEY, $SERVER_PUBLIC_KEY);
 ```
 
+The values provided to the `Client` instance are provided as they are received from the Express Statement service, no prior conversion or processing is needed:
+
+- `$APP_KEY` - String starting with `app_` prefix.
+- `$APP_PRIVATE_KEY` - String in Base64 encoding, representing the application private key.
+- `$SERVER_PUBLIC_KEY` - String in Base64 encoding, representing the server public key.
+
 After that, you can call methods easily.
 
 ### Initiate Session
