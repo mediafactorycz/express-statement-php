@@ -44,7 +44,7 @@ class Client {
     const VERSION = "1.9.0";
 
     /** Default endpoint URL. */
-    const BASE_URL = "https://service.rychlyvypis.cz";
+    public $BASE_URL = "https://service.rychlyvypis.cz";
 
     /** @var string APP_KEY value. */
     private $appKey;
@@ -194,7 +194,7 @@ class Client {
     private function http(string $method, string $path, array $params, string $normalizedData, PublicKey $publicKey, Serializable $response) {
 
         // Prepare request parameters
-        $url = Client::BASE_URL . $path;
+        $url = $this->BASE_URL . $path;
         $signRequest = $this->signature->computeDataSignature($normalizedData, $this->appPrivateKey);
 
         // Add HTTP headers to params
