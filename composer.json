@@ -1,5 +1,5 @@
 {
-  "name": "lime/express-statement-php",
+  "name": "lime-company/express-statement-php",
   "description": "Express statement integration library for PHP 7.1.",
   "type": "library",
   "homepage": "https://github.com/lime-company/express-statement-php",

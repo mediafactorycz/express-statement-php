@@ -15,7 +15,7 @@ This repository contains an easy to use PHP client for the Express Statement ser
 Use our `composer` package:
 
 ```sh
-composer require lime/express-statement-php
+composer require lime-company/express-statement-php
 ```
 
 ## Usage
