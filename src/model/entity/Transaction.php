@@ -17,12 +17,15 @@
 
 namespace Lime\ExpressStatement\Model\Entity;
 
+use Lime\ExpressStatement\Model\Base\ISO8601DateTime;
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Class representing a bank account transaction.
  *
  * @package Lime\ExpressStatement\Model\Entity
  */
-class Transaction {
+class Transaction extends Serializable {
 
     /** @var string Transaction ID, as assigned by the bank. */
     public $id;
@@ -42,7 +45,7 @@ class Transaction {
     /** @var string Transaction currency. */
     public $currency;
 
-    /** @var \DateTime Transaction value date (date when transaction was accounted). */
+    /** @var ISO8601DateTime Transaction value date (date when transaction was accounted). */
     public $valueDate;
 
     /** @var string Transaction description. */
@@ -62,5 +65,12 @@ class Transaction {
 
     /** @var string Specific symbol. */
     public $specificSymbol;
+
+    public function typeHint($fieldName) {
+        if ($fieldName === "valueDate") {
+            return new ISO8601DateTime();
+        }
+        return parent::typeHint($fieldName);
+    }
 
 }

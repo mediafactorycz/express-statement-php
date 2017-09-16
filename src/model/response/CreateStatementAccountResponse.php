@@ -17,12 +17,14 @@
 
 namespace Lime\ExpressStatement\Model\Response;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Response object for created temporary pairing account.
  *
  * @package Lime\ExpressStatement\Model\Response
  */
-class CreateStatementAccountResponse {
+class CreateStatementAccountResponse extends Serializable {
 
     /** @var string Session ID value. */
     public $sessionId;

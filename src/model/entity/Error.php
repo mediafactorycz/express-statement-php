@@ -17,12 +17,14 @@
 
 namespace Lime\ExpressStatement\Model\Entity;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Class representing a generic RESTful API error object.
  *
  * @package Lime\ExpressStatement\Model\Entity
  */
-class Error {
+class Error extends Serializable {
 
     /**  @var string Error code. */
     public $code;
@@ -39,7 +41,7 @@ class Error {
      * @param $description string Error description in English.
      * @param $localizedDescription string Localized error description, if available.
      */
-    public function __construct($code, $description, $localizedDescription)
+    public function __construct($code = "ERROR_GENERIC", $description = "", $localizedDescription = "")
     {
         $this->code = $code;
         $this->description = $description;

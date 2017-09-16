@@ -17,12 +17,14 @@
 
 namespace Lime\ExpressStatement\Model\Entity;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Class representing a bank account statement.
  *
  * @package Lime\ExpressStatement\Model\Entity
  */
-class Statement {
+class Statement extends Serializable {
 
     /** @var AccountIdentification Account identification for the account on the statement. */
     public $account;
@@ -35,5 +37,20 @@ class Statement {
 
     /** @var Transaction[] List of transactions on the account. */
     public $transactions;
+
+    public function typeHint($fieldName) {
+        if ($fieldName === "account") {
+            return new AccountIdentification();
+        } else if ($fieldName === "balance") {
+            return new AccountBalance();
+        } else if ($fieldName === "period") {
+            return new StatementPeriod();
+        } else if ($fieldName === "transactions") {
+            return array();
+        } else if ($fieldName === "transactions[]") {
+            return new Transaction();
+        }
+        return parent::typeHint($fieldName);
+    }
 
 }

@@ -17,12 +17,14 @@
 
 namespace Lime\ExpressStatement\Model\Entity;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Class representing a single bank information.
  *
  * @package Lime\ExpressStatement\Model\Entity
  */
-class Bank {
+class Bank extends Serializable {
 
     /**  @var string Bank name (name of organization). */
     public $name;

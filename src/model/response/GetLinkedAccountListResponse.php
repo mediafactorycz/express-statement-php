@@ -17,6 +17,8 @@
 
 namespace Lime\ExpressStatement\Model\Response;
 
+use Lime\ExpressStatement\Model\Base\ISO8601DateTime;
+use Lime\ExpressStatement\Model\Base\Serializable;
 use Lime\ExpressStatement\Model\Entity\Bank;
 
 /**
@@ -24,7 +26,7 @@ use Lime\ExpressStatement\Model\Entity\Bank;
  *
  * @package Lime\ExpressStatement\Model\Response
  */
-class GetLinkedAccountListResponse {
+class GetLinkedAccountListResponse extends Serializable {
 
     /** @var string Session ID value. */
     public $id;
@@ -40,5 +42,21 @@ class GetLinkedAccountListResponse {
 
     /** @var Bank[] Array of banks that are still available for connection. */
     public $availableBanks;
+
+    public function typeHint($fieldName) {
+        if ($fieldName === "expires") {
+            return new ISO8601DateTime();
+        } else if ($fieldName === "banks") {
+            return array();
+        } else if ($fieldName === "banks[]") {
+            return new Bank();
+        } else if ($fieldName === "availableBanks") {
+            return array();
+        } else if ($fieldName === "availableBanks[]") {
+            return new Bank();
+        }
+        return parent::typeHint($fieldName);
+    }
+
 
 }

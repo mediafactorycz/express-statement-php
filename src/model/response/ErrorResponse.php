@@ -17,6 +17,7 @@
 
 namespace Lime\ExpressStatement\Model\Response;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
 use Lime\ExpressStatement\Model\Entity\Error;
 
 /**
@@ -24,11 +25,20 @@ use Lime\ExpressStatement\Model\Entity\Error;
  *
  * @package Lime\ExpressStatement\Model\Response
  */
-class ErrorResponse {
+class ErrorResponse extends Serializable {
 
     /**
      * @var Error[] Errors associated with the response.
      */
     public $errors;
+
+    public function typeHint($fieldName) {
+        if ($fieldName === "errors") {
+            return array();
+        } else if ($fieldName === "errors[]") {
+            return new Error();
+        }
+        return parent::typeHint($fieldName);
+    }
 
 }

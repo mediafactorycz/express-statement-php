@@ -17,17 +17,30 @@
 
 namespace Lime\ExpressStatement\Model\Entity;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Class representing an bank account statement export from a single bank.
  *
  * @package Lime\ExpressStatement\Model\Entity
  */
-class BankStatementExport {
+class BankStatementExport extends Serializable {
 
     /** @var Bank Bank information for the bank connected to the statement export */
     public $bank;
 
     /** @var Statement[] List of bank account statements */
     public $statements;
+
+    public function typeHint($fieldName){
+        if ($fieldName === "bank") {
+            return new Bank();
+        } else if ($fieldName === "statements") {
+            return array();
+        } else if ($fieldName === "statements[]") {
+            return new Statement();
+        }
+        return parent::typeHint($fieldName);
+    }
 
 }

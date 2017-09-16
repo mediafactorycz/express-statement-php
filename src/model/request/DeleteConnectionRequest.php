@@ -17,12 +17,14 @@
 
 namespace Lime\ExpressStatement\Model\Request;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Request object for deleting all bank connections.
  *
  * @package Lime\ExpressStatement\Model\Request
  */
-class DeleteConnectionRequest {
+class DeleteConnectionRequest extends Serializable {
 
     /** @var string APP_KEY value. */
     public $appKey;

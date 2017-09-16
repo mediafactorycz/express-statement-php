@@ -17,6 +17,7 @@
 
 namespace Lime\ExpressStatement\Model\Response;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
 use Lime\ExpressStatement\Model\Entity\BankStatementExport;
 
 /**
@@ -24,7 +25,7 @@ use Lime\ExpressStatement\Model\Entity\BankStatementExport;
  *
  * @package Lime\ExpressStatement\Model\Response
  */
-class GetStatementResponse {
+class GetStatementResponse extends Serializable {
 
     /**
      * @var string
@@ -38,5 +39,14 @@ class GetStatementResponse {
      * @var BankStatementExport[]
      */
     public $data;
+
+    public function typeHint($fieldName) {
+        if ($fieldName === "data") {
+            return array();
+        } else if ($fieldName === "data[]") {
+            return new BankStatementExport();
+        }
+        return parent::typeHint($fieldName);
+    }
 
 }

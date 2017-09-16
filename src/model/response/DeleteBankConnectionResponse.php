@@ -17,12 +17,14 @@
 
 namespace Lime\ExpressStatement\Model\Response;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Response object of the delete bank connection method.
  *
  * @package Lime\ExpressStatement\Model\Response
  */
-class DeleteBankConnectionResponse {
+class DeleteBankConnectionResponse extends Serializable {
 
     /** @var string Session ID value. */
     public $sessionId;

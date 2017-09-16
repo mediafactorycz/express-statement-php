@@ -17,12 +17,14 @@
 
 namespace Lime\ExpressStatement\Model\Entity;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Class representing an account balance - amount and currency.
  *
  * @package Lime\ExpressStatement\Model\Entity
  */
-class AccountBalance {
+class AccountBalance extends Serializable {
 
     /** @var double Account balance value (amount).  */
     public $amount;

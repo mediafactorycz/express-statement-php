@@ -17,12 +17,14 @@
 
 namespace Lime\ExpressStatement\Model\Entity;
 
+use Lime\ExpressStatement\Model\Base\Serializable;
+
 /**
  * Class representing an account identification.
  *
  * @package Lime\ExpressStatement\Model\Entity
  */
-class AccountIdentification {
+class AccountIdentification extends Serializable {
 
     /** @var string Account number in IBAN format. */
     public $iban;
