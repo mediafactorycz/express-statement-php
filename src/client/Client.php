@@ -16,6 +16,7 @@
  */
 
 namespace Lime\ExpressStatement\Client;
+
 use GuzzleHttp\Exception\RequestException;
 use Lime\ExpressStatement\Crypto\KeyConverter;
 use Lime\ExpressStatement\Crypto\Signature;
@@ -191,6 +192,27 @@ class Client {
 
     // Private methods
 
+    /**
+     * Send HTTP request with provided HTTP method to endpoint defined by given path, with HTTP request params.
+     * Also includes handling of private key signature of normalized request data and signature validation of
+     * response object using a public key. Method serializes response into the provided object instance.
+     *
+     * @param string $method HTTP method, for example POST or GET.
+     * @param string $path Request path, for example '/api/statement/export'. Parameter will be appended to
+     * base URL. The path must start with '/' character.
+     * @param array $params Request parameters. For POST method, this is usually an array with 'body' key. For
+     * GET method, this is usually an array with 'query' key. This array will be automatically extended with
+     * array with 'header' key, that represents HTTP headers required for all HTTP requests.
+     * @param string $normalizedData Normalized data for computing request signature. For GET method, this is
+     * a signature base string computed by sorting query parameters by key and concatenating them to query
+     * string. For POST method, these are raw request data.
+     * @param PublicKey $publicKey Public key used for response signature verification.
+     * @param Serializable $response Instance of the response object, it will be initialized using the data
+     * from the JSON response.
+     * @return Serializable Response object - instance of $response with values from the JSON response.
+     * @throws ErrorException In case HTTP processing occurs, or server returns error response.
+     * @throws SignatureFailedException In case server response signature does not match.
+     */
     private function http(string $method, string $path, array $params, string $normalizedData, PublicKey $publicKey, Serializable $response) {
 
         // Prepare request parameters
@@ -234,10 +256,28 @@ class Client {
         }
     }
 
+    /**
+     * Send correctly configured HTTP GET request to provided path with query parameters.
+     *
+     * @param string $path Path to be used for the request.
+     * @param array $params Request query parameters.
+     * @param PublicKey $publicKey Public key used for response signature validation.
+     * @param Serializable $response Instance for the response object.
+     * @return Serializable Response, $response value with data form response JSON.
+     */
     private function httpGet(string $path, array $params, PublicKey $publicKey, Serializable $response) {
         return $this->http("GET", $path, [ 'query' => $params ], HttpUtil::normalizeQueryParameterMap($params), $publicKey, $response);
     }
 
+    /**
+     * Send correctly configured HTTP POST request to provided path with a request object.
+     *
+     * @param string $path Path to be used for the request.
+     * @param Serializable $request Request object.
+     * @param PublicKey $publicKey Public key used for response signature validation.
+     * @param Serializable $response Instance for the response object.
+     * @return Serializable Response, $response value with data form response JSON.
+     */
     private function httpPost(string $path, Serializable $request, PublicKey $publicKey, Serializable $response) {
         $requestBody = $request->serialize();
         return $this->http("POST", $path, [ "body" => $requestBody ], $requestBody, $publicKey, $response);
