@@ -41,7 +41,7 @@ use Mdanter\Ecc\Crypto\Key\PublicKey;
 class Client {
 
     /** Client library version. */
-    const VERSION = "1.8.1";
+    const VERSION = "1.9.0";
 
     /** Default endpoint URL. */
     const BASE_URL = "https://service.rychlyvypis.cz";
