@@ -28,17 +28,17 @@ use Mdanter\Ecc\Curves\NistCurve;
  */
 class KeyConverter {
 
-    /** @var int Public key component length */
-    private static $KEY_LENGTH = 32;
+    /** Public key component length */
+    const KEY_LENGTH = 32;
 
-    /** @var int Public key X coordinate offset */
-    private static $KEY_OFFSET_X = 1;
+    /** Public key X coordinate offset */
+    const KEY_OFFSET_X = 1;
 
-    /** @var int Public key Y coordinate offset */
-    private static $KEY_OFFSET_Y = 33;
+    /** Public key Y coordinate offset */
+    const KEY_OFFSET_Y = 33;
 
-    /** @var int Public key raw data length */
-    private static $KEY_DATA_LEN = 65;
+    /** Public key raw data length */
+    const KEY_DATA_LEN = 65;
 
     /**
      * Convert provided bytes (raw data) to public key.
@@ -49,13 +49,13 @@ class KeyConverter {
      */
     function bytesToPublicKey($publicKeyBytes) {
         // Validate data
-        if (strlen($publicKeyBytes) != KeyConverter::$KEY_DATA_LEN) {
+        if (strlen($publicKeyBytes) != KeyConverter::KEY_DATA_LEN) {
             throw new \RuntimeException('EC public key data size invalid - key data must be 65 bytes long.');
         }
 
         // Extract X and Y points from encoded representation
-        $xBytes = substr($publicKeyBytes, KeyConverter::$KEY_OFFSET_X, KeyConverter::$KEY_LENGTH);
-        $yBytes = substr($publicKeyBytes, KeyConverter::$KEY_OFFSET_Y, KeyConverter::$KEY_LENGTH);
+        $xBytes = substr($publicKeyBytes, KeyConverter::KEY_OFFSET_X, KeyConverter::KEY_LENGTH);
+        $yBytes = substr($publicKeyBytes, KeyConverter::KEY_OFFSET_Y, KeyConverter::KEY_LENGTH);
 
         // Convert bytes into large numbers
         $x = gmp_import($xBytes);
