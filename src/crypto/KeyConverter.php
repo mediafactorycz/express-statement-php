@@ -37,6 +37,9 @@ class KeyConverter {
     /** @var int Public key Y coordinate offset */
     private static $KEY_OFFSET_Y = 33;
 
+    /** @var int Public key raw data length */
+    private static $KEY_DATA_LEN = 65;
+
     /**
      * Convert provided bytes (raw data) to public key.
      *
@@ -46,8 +49,8 @@ class KeyConverter {
      */
     function bytesToPublicKey($publicKeyBytes) {
         // Validate data
-        if (strlen($publicKeyBytes) != 65) {
-            throw new \RuntimeException('EC public key size data must be 65.');
+        if (strlen($publicKeyBytes) != KeyConverter::$KEY_DATA_LEN) {
+            throw new \RuntimeException('EC public key data size invalid - key data must be 65 bytes long.');
         }
 
         // Extract X and Y points from encoded representation
