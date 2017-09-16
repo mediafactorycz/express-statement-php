@@ -38,6 +38,15 @@ class ISO8601DateTime extends \DateTime implements \JsonSerializable {
     }
 
     /**
+     * Return "now" timestamp as ISO 8601 formatted string.
+     *
+     * @return string ISO 8601 string representing "now".
+     */
+    public static function nowAsString() {
+        return (new ISO8601DateTime())->jsonSerialize();
+    }
+
+    /**
      * Render the object as ISO 8601 string.
      *
      * @return string JSON representation of date, string in ISO 8601 format.
