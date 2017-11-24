@@ -27,6 +27,19 @@ use DateTimeZone;
 class ISO8601DateTime extends \DateTime implements \JsonSerializable {
 
     /**
+     * Override of the createFromFormat provided by DateTime, to provide correct return type
+     * @param $format String Date format
+     * @param $time String Time instance
+     * @param $object Object
+     * @return static
+     */
+    static public function createFromFormat($format, $time, $object = NULL) {
+        $dateTime = new static();
+        $dateTime->setTimestamp(parent::createFromFormat($format, $time, $object)->getTimestamp());
+        return $dateTime;
+    }
+
+    /**
      * Create a new instance from provided string that represents date as ISO 8601 format.
      *
      * @param $time string String representing date in ISO 8601.
@@ -34,9 +47,7 @@ class ISO8601DateTime extends \DateTime implements \JsonSerializable {
      * @return ISO8601DateTime Object representing a date time.
      */
     public static function createFromISO8601Format(string $time, DateTimeZone $timezone = null): ISO8601DateTime {
-        $dateTime = new ISO8601DateTime();
-        $dateTime->createFromFormat('Y-m-d\TH:i:s+', $time, $timezone);
-        return $dateTime;
+        return ISO8601DateTime::createFromFormat('Y-m-d\TH:i:s+', $time, $timezone);;
     }
 
     /**
