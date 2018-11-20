@@ -20,6 +20,7 @@ namespace Lime\ExpressStatement\Crypto;
 use Mdanter\Ecc\Crypto\Key\PrivateKey;
 use Mdanter\Ecc\Crypto\Key\PublicKey;
 use Mdanter\Ecc\Crypto\Signature\Signer;
+use Mdanter\Ecc\Crypto\Signature\SignHasher;
 use Mdanter\Ecc\EccFactory;
 use Mdanter\Ecc\Random\RandomGeneratorFactory;
 use Mdanter\Ecc\Serializer\Signature\DerSignatureSerializer;
@@ -36,7 +37,10 @@ class Signature {
      *
      * @param $data string Data to be signed.
      * @param $privateKey PrivateKey Private key used for signature.
+     *
      * @return string Signature bytes.
+     *
+     * @throws \RuntimeException
      */
     public function computeDataSignature(string $data, PrivateKey $privateKey): string {
         $adapter = EccFactory::getAdapter();
@@ -47,13 +51,13 @@ class Signature {
         $randomK = $random->generate($generator->getOrder());
 
         $signer = new Signer($adapter);
-        $hash = $signer->hashData($generator, $algorithm, $data);
+        $hasher = new SignHasher($algorithm);
+        $hash = $hasher->makeHash($data, $generator);
 
         $signature = $signer->sign($privateKey, $hash, $randomK);
 
         $serializer = new DerSignatureSerializer();
-        $serializedSig = $serializer->serialize($signature);
-        return $serializedSig;
+        return  $serializer->serialize($signature);
     }
 
     /**
@@ -62,7 +66,11 @@ class Signature {
      * @param $data string Data to be used for signature validation.
      * @param $signature string Signature data.
      * @param $publicKey PublicKey Public key for data verification.
+     *
      * @return bool True if the signature is correct, false otherwise.
+     *
+     * @throws \FG\ASN1\Exception\ParserException
+     * @throws \RuntimeException
      */
     public function validateDataSignature(string $data, string $signature, PublicKey $publicKey): bool {
         $adapter = EccFactory::getAdapter();
@@ -73,7 +81,8 @@ class Signature {
         $sig = $sigSerializer->parse($signature);
 
         $signer = new Signer($adapter);
-        $hash = $signer->hashData($generator, $algorithm, $data);
+        $hasher = new SignHasher($algorithm);
+        $hash = $hasher->makeHash($data, $generator);
         return $signer->verify($publicKey, $sig, $hash);
     }
 
@@ -81,6 +90,8 @@ class Signature {
      * Generate random cryptographic nonce and encode it as Base64.
      *
      * @return string Base64 encoded cryptographic nonce.
+     *
+     * @throws \Exception
      */
     public function nonce(): string {
         return base64_encode(random_bytes(16));
