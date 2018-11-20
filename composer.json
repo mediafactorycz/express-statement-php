@@ -19,7 +19,7 @@
   },
   "require": {
     "php": ">=7.1",
-    "mdanter/ecc": "v0.4.2",
+    "mdanter/ecc": "v0.5.0",
     "guzzlehttp/guzzle": "^6.3"
   },
   "require-dev": {
